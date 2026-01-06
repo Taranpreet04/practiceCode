@@ -1,4 +1,5 @@
 var createError = require('http-errors');
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 var http = require('http');
 var express = require('express');
 var path = require('path');
@@ -184,6 +185,37 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/stripe', StripeRouter);
 app.use('/users', usersRouter);
+
+
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+app.post("/api/gemini", async (req, res) => {
+  try {
+    console.log("prompt", req.body.prompt, genAI)
+    const { prompt } = req.body;
+    if (!prompt) {
+      return res.status(400).json({ error: "Prompt is required" });
+    }
+
+    const model = genAI.getGenerativeModel({
+      model: "gemini-pro",
+    });
+
+    const result = await model.generateContent(prompt);
+
+    res.json({
+      success: true,
+      text: result.response.text(),
+    });
+  } catch (error) {
+    console.error("Gemini Error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Gemini API failed",
+    });
+  }
+});
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

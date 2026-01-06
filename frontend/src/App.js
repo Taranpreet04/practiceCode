@@ -8,11 +8,14 @@ import Home from './pages/home';
 import Chat from './pages/chatSection/chatIndex';
 import StripePayment from './pages/StripePayment.js';
 import UploadImage from './pages/uploadImage.js/index.js';
+import GeminiAi from './components/geminiAi.js';
 // import { useEffect, useState } from 'react';
 function App() {
   // const [socket, setSocket]= useState(null)
-  let socketInstance = io(process.env.REACT_APP_BASE_URL);
-  console.log("res", socketInstance)
+  // let socketInstance = io(process.env.REACT_APP_BASE_URL);
+  // console.log("res", socketInstance)
+
+
   // useEffect(()=>{
   // //  let res = socketIO.connect(process.env.REACT_APP_BASE_URL);
   //  if(socketInstance){
@@ -30,10 +33,11 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<MainLayout />}>
-          <Route index element={<Home socket={socketInstance} />} />
-          <Route path="chat" element={<Chat socket={socketInstance} />} />
+          {/* <Route index element={<Home socket={socketInstance} />} /> */}
+          {/* <Route path="chat" element={<Chat socket={socketInstance} />} /> */}
           <Route path="stripe" element={<StripePayment />} />
           <Route path="upload" element={<UploadImage />} />
+          <Route path="genai" element={<GeminiAi />} />
         </Route>
       </Routes>
     </div>
