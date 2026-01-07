@@ -199,7 +199,7 @@ app.post("/api/gemini", async (req, res) => {
     }
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-pro",
+      model: "gemini-2.5-flash"
     });
 
     const result = await model.generateContent(prompt);
