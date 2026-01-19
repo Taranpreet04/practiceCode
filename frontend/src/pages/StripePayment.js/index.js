@@ -1,15 +1,4 @@
-// import React from 'react'
 
-// const StripePayment = () => {
-//   return (
-//     <div>StripePayment</div>
-//   )
-// }
-// export default StripePayment;
-
-
-
-// client/src/Checkout.jsx
 import React, { useEffect, useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import {
@@ -70,7 +59,7 @@ function CheckoutForm({ clientSecret }) {
 
     console.log("paymentIntent--", paymentIntent)
     console.log("error--", error)
-    
+
     if (error) {
       setMessage(error.message);
     } else if (paymentIntent.status === 'succeeded') {
@@ -110,7 +99,7 @@ export default function StripePayment() {
       .then(r => r.json())
       .then(data => setClientSecret(data.clientSecret));
   }, []);
-
+  console.log("clientSecret==", clientSecret)
   const options = clientSecret ? { clientSecret } : null;
 
   return clientSecret ? (

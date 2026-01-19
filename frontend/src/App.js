@@ -9,6 +9,7 @@ import Chat from './pages/chatSection/chatIndex';
 import StripePayment from './pages/StripePayment.js';
 import UploadImage from './pages/uploadImage.js/index.js';
 import GeminiAi from './components/geminiAi.js';
+import Plans from './components/plans.js';
 // import { useEffect, useState } from 'react';
 function App() {
   // const [socket, setSocket]= useState(null)
@@ -38,6 +39,7 @@ function App() {
           <Route path="stripe" element={<StripePayment />} />
           <Route path="upload" element={<UploadImage />} />
           <Route path="genai" element={<GeminiAi />} />
+          <Route path="plans" element={<Plans />} />
         </Route>
       </Routes>
     </div>
