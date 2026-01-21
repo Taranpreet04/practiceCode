@@ -3,27 +3,41 @@
 /**
  * Module dependencies.
  */
-var app = require('../app');
-var debug = require('debug')('mychat:server');
-var http = require('http');
+const app = require('../app');
+const debug = require('debug')('mychat:server');
+const http = require('http');
+const { Server } = require('socket.io');
+const socketHandler = require('../socket/socketHandler');
 
 /**
  * Get port from environment and store in Express.
  */
-// console.log("process.env.PORT", process.env.PORT)
-var port = normalizePort(process.env.PORT || '4000');
+const port = normalizePort(process.env.PORT || '5000');
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
+const server = http.createServer(app);
 
-var server = http.createServer(app);
+/**
+ * Initialize Socket.io
+ */
+const io = new Server(server, {
+  cors: {
+    origin: ['http://localhost:4000'],
+    methods: ['GET', 'POST'],
+  }
+});
+
+/**
+ * Attach Socket Handler
+ */
+socketHandler(io);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
-
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
