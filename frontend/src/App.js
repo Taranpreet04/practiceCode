@@ -11,6 +11,7 @@ import UploadImage from './pages/uploadImage.js/index.js';
 import GeminiAi from './components/geminiAi.js';
 import Plans from './components/plans.js';
 import Products from './pages/products/index.js';
+import Pinterest from './pages/Pinterest/index.jsx';
 // import { useEffect, useState } from 'react';
 function App() {
   // const [socket, setSocket]= useState(null)
@@ -39,9 +40,10 @@ function App() {
           {/* <Route path="chat" element={<Chat socket={socketInstance} />} /> */}
           <Route path="stripe" element={<StripePayment />} />
           <Route path="upload" element={<UploadImage />} />
-          <Route path="genai" element={<GeminiAi />} />
+          <Route path="gemini" element={<GeminiAi />} />
           <Route path="plans" element={<Plans />} />
           <Route path="products" element={<Products />} />
+          <Route path="pinterest" element={<Pinterest />} />
         </Route>
       </Routes>
     </div>

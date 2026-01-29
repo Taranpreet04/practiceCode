@@ -12,30 +12,38 @@ connectDb();
 const app = express();
 
 // Middleware
+// app.use(cors({
+//   origin: ['http://localhost:4000'],
+//   methods: ['GET', 'POST'],
+//   credentials: true
+// }));
 app.use(cors({
-  origin: ['http://localhost:4000'],
-  methods: ['GET', 'POST'],
+  origin: "http://localhost:4000",
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use("/uploads", express.static("uploads"));
-
+console.log("app.js");
 // Routes
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const stripeRouter = require('./routes/stripe');
 const uploadRouter = require('./routes/upload');
 const geminiRouter = require('./routes/gemini');
+const pinterestRouter = require('./routes/pinterestRoutes');
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/stripe', stripeRouter);
 app.use('/api/upload', uploadRouter);
 app.use('/api/gemini', geminiRouter);
+app.use('/api/pinterest', pinterestRouter);
 
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -53,5 +61,6 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error');
 });
+app.listen(7000, () => console.log("Server running on port 7000"));
 
 module.exports = app;
