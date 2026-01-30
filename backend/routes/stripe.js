@@ -17,7 +17,7 @@ router.post('/create-payment-intent', async (req, res) => {
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
-       automatic_payment_methods: { enabled: true },
+      automatic_payment_methods: { enabled: true },
       currency,
       metadata,
     });
@@ -29,4 +29,57 @@ router.post('/create-payment-intent', async (req, res) => {
   }
 });
 
+// Create Checkout Session--means for one time payment only
+router.post('/create-checkout-session', async (req, res) => {
+  try {
+    const { productName, amount, image, items } = req.body;
+
+    let line_items = [];
+
+    if (items && Array.isArray(items)) {
+      // Handle multiple items from cart
+      line_items = items.map(item => ({
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: item.name,
+            images: [item.image],
+          },
+          unit_amount: Math.round(item.price * 100),
+        },
+        quantity: item.quantity,
+      }));
+    } else {
+      // Handle single product "Buy Now"
+      line_items = [
+        {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: productName,
+              images: [image],
+            },
+            unit_amount: Math.round(amount * 100),
+          },
+          quantity: 1,
+        },
+      ];
+    }
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items,
+      mode: 'payment',
+      success_url: `${process.env.REACT_APP_FRONTEND_URL || 'http://localhost:4000'}/products?payment=success`,
+      cancel_url: `${process.env.REACT_APP_FRONTEND_URL || 'http://localhost:4000'}/products?payment=cancel`,
+    });
+
+    res.json({ url: session.url });
+  } catch (err) {
+    console.error('❌ Stripe Checkout Error:', err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;
+

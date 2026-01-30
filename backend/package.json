@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "nodemon app.js",
+    "dev": "node app.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

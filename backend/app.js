@@ -40,7 +40,7 @@ const pinterestRouter = require('./routes/pinterestRoutes');
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/stripe', stripeRouter);
+app.use('/api/stripe', stripeRouter);
 app.use('/api/upload', uploadRouter);
 app.use('/api/gemini', geminiRouter);
 app.use('/api/pinterest', pinterestRouter);
