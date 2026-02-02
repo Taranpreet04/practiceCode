@@ -4,6 +4,7 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 const PinterestToken = require('../model/pinterestToken');
+const ImportedPin = require('../model/importedPin');
 
 const CLIENT_ID = process.env.PINTEREST_APP_ID;
 const CLIENT_SECRET = process.env.PINTEREST_APP_SECRET;
@@ -11,8 +12,9 @@ const REDIRECT_URI = process.env.PINTEREST_REDIRECT_URI;
 
 // 1. Login Route - Redirect to Pinterest OAuth
 router.get('/login', (req, res) => {
+    const { state } = req.query; // This is the userId
     const scope = 'pins:read,boards:read,user_accounts:read';
-    const authUrl = `https://www.pinterest.com/oauth/?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${scope}`;
+    const authUrl = `https://www.pinterest.com/oauth/?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${scope}${state ? `&state=${state}` : ''}`;
     console.log("authUrl", authUrl);
     res.redirect(authUrl);
 });
@@ -41,11 +43,10 @@ router.get('/callback', async (req, res) => {
 
         console.log("response in callback", response);
         const { access_token, refresh_token, expires_in } = response.data;
-        const expiresAt = new Date(Date.now() + expires_in * 1000);
+        // Forced to expire in 1 hour (3600 seconds)
+        const expiresAt = new Date(Date.now() + 3600 * 1000); //expire after 1 hour
 
-        // For now, using a hardcoded userId or extracting from somewhere if available
-        // In a real app, you'd get this from session/JWT
-        const userId = req.query.state || '66e9a6e6e6e6e6e6e6e6e6e6'; // Placeholder if no user session
+        const userId = req.query.state || '66f11bdb87ccaa6ae0ed9d08'; // Placeholder if no user session
 
         await PinterestToken.findOneAndUpdate(
             { userId },
@@ -53,7 +54,7 @@ router.get('/callback', async (req, res) => {
             { upsert: true, new: true }
         );
 
-        res.send('Pinterest connected successfully! You can close this window.');
+        res.json({ message: 'Pinterest connected successfully!', userId });
     } catch (error) {
         console.error('Pinterest Callback Error:', error.response ? error.response.data : error.message);
         res.status(500).json({ error: 'Failed to connect Pinterest' });
@@ -83,7 +84,8 @@ async function getAccessToken(userId) {
 
         const { access_token, expires_in } = response.data;
         token.accessToken = access_token;
-        token.expiresAt = new Date(Date.now() + expires_in * 1000);
+        // Forced to expire in 1 hour (3600 seconds)
+        token.expiresAt = new Date(Date.now() + 3600 * 1000);
         await token.save();
     }
     return token.accessToken;
@@ -91,11 +93,13 @@ async function getAccessToken(userId) {
 
 // 3. Fetch Boards
 router.get('/boards', async (req, res) => {
-    const userId = req.query.userId || '66e9a6e6e6e6e6e6e6e6e6e6'; // Placeholder
+    const userId = req.query.userId || '66f11bdb87ccaa6ae0ed9d08';
     try {
         const accessToken = await getAccessToken(userId);
         const response = await axios.get('https://api.pinterest.com/v5/boards', {
-            headers: { 'Authorization': `Bearer ${accessToken}` }
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
         });
         res.json(response.data);
     } catch (error) {
@@ -107,7 +111,7 @@ router.get('/boards', async (req, res) => {
 // 4. Fetch Pins in a Board
 router.get('/boards/:boardId/pins', async (req, res) => {
     const { boardId } = req.params;
-    const userId = req.query.userId || '66e9a6e6e6e6e6e6e6e6e6e6'; // Placeholder
+    const userId = req.query.userId || '66f11bdb87ccaa6ae0ed9d08';
     try {
         const accessToken = await getAccessToken(userId);
         const response = await axios.get(`https://api.pinterest.com/v5/boards/${boardId}/pins`, {
@@ -134,7 +138,11 @@ router.post('/import', async (req, res) => {
             const pinRes = await axios.get(`https://api.pinterest.com/v5/pins/${pinId}`, {
                 headers: { 'Authorization': `Bearer ${accessToken}` }
             });
-            const imageUrl = pinRes.data.media.images['originals'].url;
+            const imageUrl = pinRes.data.media?.images?.['originals']?.url || pinRes.data.media?.images?.['600x']?.url;
+            if (!imageUrl) {
+                console.warn(`No image URL found for pin ${pinId}`);
+                continue;
+            }
 
             // Download Image
             const imgRes = await axios({
@@ -154,17 +162,32 @@ router.post('/import', async (req, res) => {
                 writer.on('error', reject);
             });
 
-            imported.push({
-                pinId,
-                url: `http://localhost:5000/uploads/${fileName}`,
-                originalUrl: imageUrl
-            });
+            // Save to Database
+            const savedPin = await ImportedPin.findOneAndUpdate(
+                { userId, pinId },
+                { localUrl: `http://localhost:7000/uploads/${fileName}`, originalUrl: imageUrl },
+                { upsert: true, new: true }
+            );
+
+            imported.push(savedPin);
         }
 
         res.json({ message: 'Imported successfully', count: imported.length, imported });
     } catch (error) {
         console.error('Import Pins Error:', error.response ? error.response.data : error.message);
         res.status(500).json({ error: 'Failed to import pins' });
+    }
+});
+
+// 6. Get Already Imported Pins
+router.get('/imported-pins', async (req, res) => {
+    const userId = req.query.userId || '66f11bdb87ccaa6ae0ed9d08';
+    try {
+        const pins = await ImportedPin.find({ userId }).sort({ createdAt: -1 });
+        res.json({ items: pins });
+    } catch (error) {
+        console.error('Fetch Imported Pins Error:', error.message);
+        res.status(500).json({ error: 'Failed to fetch imported pins' });
     }
 });
 
