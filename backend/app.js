@@ -1,6 +1,7 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
@@ -23,8 +24,15 @@ app.use(cors({
   credentials: true
 }));
 
+// Webhook at /api/stripe/webhook needs raw body for signature verification
+// app.use('/api/stripe/webhook', bodyParser.raw({ type: 'application/json' }));
+
 app.use(logger('dev'));
-app.use(express.json());
+app.use(express.json({
+  verify: (req, res, buf) => {
+    req.rawBody = buf;
+  }
+}));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
