@@ -1,14 +1,13 @@
-const mongoose = require("mongoose");
+import mongoose from 'mongoose';
 
-const connectDb = () => {
-    let data = {
-        dbName: "chatApp",
-        // useNewUrlParser: true,
-        // useUnifiedTopology: true,
+const connectDb = async () => {
+    try {
+        const conn = await mongoose.connect(process.env.databaseUrl);
+        console.log(`MongoDB Connected: ${conn.connection.host}`);
+    } catch (error) {
+        console.error(`Error: ${error.message}`);
+        process.exit(1);
     }
-    mongoose.connect(process.env.databaseUrl, data).then(() =>
-        console.log(
-            "Connected to yourDB-name database")
-    );
-}
-module.exports = connectDb;
+};
+
+export default connectDb;

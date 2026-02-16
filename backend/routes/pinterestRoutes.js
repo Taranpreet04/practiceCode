@@ -1,10 +1,14 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const axios = require('axios');
-const fs = require('fs');
-const path = require('path');
-const PinterestToken = require('../model/pinterestToken');
-const ImportedPin = require('../model/importedPin');
+import axios from 'axios';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import PinterestToken from '../model/pinterestToken.js';
+import ImportedPin from '../model/importedPin.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const CLIENT_ID = process.env.PINTEREST_APP_ID;
 const CLIENT_SECRET = process.env.PINTEREST_APP_SECRET;
@@ -191,4 +195,4 @@ router.get('/imported-pins', async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

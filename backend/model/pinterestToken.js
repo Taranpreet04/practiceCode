@@ -1,13 +1,12 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const pinterestTokenSchema = mongoose.Schema({
+const pinterestTokenSchema = new mongoose.Schema({
     userName: { type: String, required: true },
     accessToken: { type: String, required: true },
     refreshToken: { type: String, required: true },
     expiresAt: { type: Date, required: true },
     userId: { type: String, required: true },
 }, { timestamps: true });
-    
-const PinterestToken = mongoose.model("PinterestToken", pinterestTokenSchema);
 
-module.exports = PinterestToken;
+const PinterestToken = mongoose.model("PinterestToken", pinterestTokenSchema);
+export default PinterestToken;

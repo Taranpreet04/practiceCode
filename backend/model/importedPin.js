@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const importedPinSchema = new mongoose.Schema({
     userId: { type: String, required: true },
@@ -8,7 +8,7 @@ const importedPinSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
-// Avoid duplicate imports for the same user and pin
 importedPinSchema.index({ userId: 1, pinId: 1 }, { unique: true });
 
-module.exports = mongoose.model('ImportedPin', importedPinSchema);
+const ImportedPin = mongoose.model('ImportedPin', importedPinSchema);
+export default ImportedPin;

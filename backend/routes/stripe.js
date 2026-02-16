@@ -1,8 +1,9 @@
-const express = require('express');
-const Stripe = require('stripe');
-const bodyParser = require("body-parser");
+import express from 'express';
+import Stripe from 'stripe';
+import bodyParser from 'body-parser';
 const router = express.Router();
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -203,5 +204,5 @@ router.post("/webhook", (req, res) => {
 });
 
 
-module.exports = router;
+export default router;
 

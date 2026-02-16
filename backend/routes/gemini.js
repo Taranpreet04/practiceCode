@@ -1,7 +1,7 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const { geminiController } = require('../controllers/geminiController');
+import { geminiController } from '../controllers/geminiController.js';
 
 router.post('/', geminiController);
 
-module.exports = router;
+export default router;

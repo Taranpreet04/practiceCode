@@ -12,6 +12,7 @@ import GeminiAi from './components/geminiAi.js';
 import Plans from './components/plans.js';
 import Products from './pages/products/index.js';
 import Pinterest from './pages/Pinterest/index.jsx';
+import ChapterGenerator from './components/ChapterGenerator/ChapterGenerator.jsx';
 // import { useEffect, useState } from 'react';
 function App() {
   // const [socket, setSocket]= useState(null)
@@ -44,6 +45,7 @@ function App() {
           <Route path="plans" element={<Plans />} />
           <Route path="products" element={<Products />} />
           <Route path="pinterest" element={<Pinterest />} />
+          <Route path="chapters" element={<ChapterGenerator />} />
         </Route>
       </Routes>
     </div>

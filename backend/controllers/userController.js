@@ -1,16 +1,17 @@
-var userModel = require("../model/users");
+import User from "../model/users.js";
+
 class UserController {
     static addUser = async (req, res, next) => {
         try {
 
             const { userName, socketId } = req.body;
             // console.log(req.file)
-            let user = await new userModel({
+            let user = new User({
                 userName: socketId,
                 socketId: socketId,
             })
             await user.save();
-             res.send({});
+            res.send({});
         }
         catch (err) {
             console.log(err);
@@ -19,14 +20,15 @@ class UserController {
     }
 
     static getUsers = async (req, res, next) => {
-            try{
-                let users = userModel.find();
-            }
-            catch (err) {
-                console.log(err);
-                res.send(err);
-            }
+        try {
+            let users = await User.find();
+            res.json(users);
+        }
+        catch (err) {
+            console.log(err);
+            res.status(500).send(err);
+        }
     }
 }
 
-module.exports = UserController
+export default UserController

@@ -1,31 +1,30 @@
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const cors = require('cors');
-require('dotenv').config();
+import createError from 'http-errors';
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import cors from 'cors';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const connectDb = require('./config/connectDb');
+const __filename = fileURLToPath(import.meta.url);
+console.log("__filename", __filename);
+const __dirname = path.dirname(__filename);
+console.log("__dirname", __dirname);
+
+import connectDb from './config/connectDb.js';
 connectDb();
 
 const app = express();
 
 // Middleware
-// app.use(cors({
-//   origin: ['http://localhost:4000'],
-//   methods: ['GET', 'POST'],
-//   credentials: true
-// }));
 app.use(cors({
   origin: "http://localhost:4000",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
-
-// Webhook at /api/stripe/webhook needs raw body for signature verification
-// app.use('/api/stripe/webhook', bodyParser.raw({ type: 'application/json' }));
 
 app.use(logger('dev'));
 app.use(express.json({
@@ -37,14 +36,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use("/uploads", express.static("uploads"));
-console.log("app.js");
+console.log("app.js started (ESM)");
+
 // Routes
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const stripeRouter = require('./routes/stripe');
-const uploadRouter = require('./routes/upload');
-const geminiRouter = require('./routes/gemini');
-const pinterestRouter = require('./routes/pinterestRoutes');
+import indexRouter from './routes/index.js';
+import usersRouter from './routes/users.js';
+import stripeRouter from './routes/stripe.js';
+import uploadRouter from './routes/upload.js';
+import geminiRouter from './routes/gemini.js';
+import pinterestRouter from './routes/pinterestRoutes.js';
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -62,6 +62,9 @@ app.use((req, res, next) => {
   next(createError(404));
 });
 
+
+const filePath = path.join(__dirname, 'test.txt');
+console.log("filePath", filePath);
 // Error handler
 app.use((err, req, res, next) => {
   res.locals.message = err.message;
@@ -69,6 +72,8 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error');
 });
-app.listen(7000, () => console.log("Server running on port 7000"));
 
-module.exports = app;
+const PORT = 7000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+export default app;
