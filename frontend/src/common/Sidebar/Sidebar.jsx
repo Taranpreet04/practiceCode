@@ -20,6 +20,7 @@ const Sidebar = () => {
         { path: '/plans', icon: Layers, label: 'Subscription Plans' },
         { path: '/products', icon: ShoppingBag, label: 'Products' },
         { path: '/pinterest', icon: ImageIcon, label: 'Pinterest' },
+        { path: '/image-comment', icon: ImageIcon, label: 'Image Comment' },
     ];
 
     return (
