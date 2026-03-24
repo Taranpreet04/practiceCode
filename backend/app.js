@@ -45,6 +45,7 @@ import stripeRouter from './routes/stripe.js';
 import uploadRouter from './routes/upload.js';
 import geminiRouter from './routes/gemini.js';
 import pinterestRouter from './routes/pinterestRoutes.js';
+import ecommerceRoutes from './routes/ecomerce/index.js';
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -52,6 +53,8 @@ app.use('/api/stripe', stripeRouter);
 app.use('/api/upload', uploadRouter);
 app.use('/api/gemini', geminiRouter);
 app.use('/api/pinterest', pinterestRouter);
+app.use('/api/ecommerce', ecommerceRoutes);
+// app.use('/api/ecommerce', ecommerceRoutes);
 
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
