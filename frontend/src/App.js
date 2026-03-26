@@ -14,6 +14,7 @@ import Products from './pages/products/index.js';
 import Pinterest from './pages/Pinterest/index.jsx';
 import ChapterGenerator from './components/ChapterGenerator/ChapterGenerator.jsx';
 import ImageComment from './pages/ImageComment.js';
+import ImportExcel from './pages/ImportExcel/index.js';
 // import { useEffect, useState } from 'react';
 function App() {
   // const [socket, setSocket]= useState(null)
@@ -47,6 +48,7 @@ function App() {
           <Route path="products" element={<Products />} />
           <Route path="pinterest" element={<Pinterest />} />
           <Route path="chapters" element={<ChapterGenerator />} />
+          <Route path="import-excel" element={<ImportExcel />} />
           <Route path="image-comment" element={<ImageComment />} />
         </Route>
       </Routes>
