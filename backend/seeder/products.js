@@ -1,5 +1,5 @@
+import connectDb from "../config/connectDb/connectMongoDb.js";
 import Product from "../model/Ecommerce/products.js";
-import connectDb from "../config/connectDb.js";
 
 const products = [{
     "id": 1,

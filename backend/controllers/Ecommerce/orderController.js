@@ -14,14 +14,14 @@ const getCustomerOrderDetail = async (req, res) => {
                     customerId: new mongoose.Types.ObjectId(customerId)
                 }
             },
-            // {
-            //     $sort: {
-            //         "orderDate": -1
-            //     }
-            // },
-            // {
-            //     $limit: 1
-            // },
+            {
+                $sort: {
+                    "orderDate": -1
+                }
+            },
+            {
+                $limit: 1
+            },
             {
                 $lookup: {
                     from: "orderitems",

@@ -2,11 +2,17 @@ import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import admin from "firebase-admin";
+import swaggerUi from "swagger-ui-express";
+const swaggerFile = require("./swagger-output.json");
+
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -14,7 +20,7 @@ console.log("__filename", __filename);
 const __dirname = path.dirname(__filename);
 console.log("__dirname", __dirname);
 
-import connectDb from './config/connectDb.js';
+import connectDb from './config/connectDb/connectMongoDb.js';
 connectDb();
 
 const app = express();
@@ -46,7 +52,11 @@ import uploadRouter from './routes/upload.js';
 import geminiRouter from './routes/gemini.js';
 import pinterestRouter from './routes/pinterestRoutes.js';
 import ecommerceRoutes from './routes/ecomerce/index.js';
-
+import propertyRoutes from './routes/propertyRoutes.js';
+const serviceAccount = require("./config/serviceAccountKey.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/stripe', stripeRouter);
@@ -54,11 +64,15 @@ app.use('/api/upload', uploadRouter);
 app.use('/api/gemini', geminiRouter);
 app.use('/api/pinterest', pinterestRouter);
 app.use('/api/ecommerce', ecommerceRoutes);
+app.use('/api/property', propertyRoutes);
 // app.use('/api/ecommerce', ecommerceRoutes);
 
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+// API documentation
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -76,7 +90,7 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-const PORT = 7000;
+const PORT = process.env.PORT || 7000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 export default app;

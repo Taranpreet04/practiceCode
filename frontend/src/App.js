@@ -15,6 +15,9 @@ import Pinterest from './pages/Pinterest/index.jsx';
 import ChapterGenerator from './components/ChapterGenerator/ChapterGenerator.jsx';
 import ImageComment from './pages/ImageComment.js';
 import ImportExcel from './pages/ImportExcel/index.js';
+import Property from './pages/property.js';
+import Login from './pages/login/index.js';
+import { ToastContainer, toast } from 'react-toastify';
 // import { useEffect, useState } from 'react';
 function App() {
   // const [socket, setSocket]= useState(null)
@@ -37,12 +40,15 @@ function App() {
 
   return (
     <div className="App">
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<MainLayout />}>
+          <Route path="login" element={<Login />} />
           {/* <Route index element={<Home socket={socketInstance} />} /> */}
           {/* <Route path="chat" element={<Chat socket={socketInstance} />} /> */}
           <Route path="stripe" element={<StripePayment />} />
-          <Route path="upload" element={<UploadImage />} />
+
+          <Route path="upload-image" element={<UploadImage />} />
           <Route path="gemini" element={<GeminiAi />} />
           <Route path="plans" element={<Plans />} />
           <Route path="products" element={<Products />} />
@@ -50,6 +56,7 @@ function App() {
           <Route path="chapters" element={<ChapterGenerator />} />
           <Route path="import-excel" element={<ImportExcel />} />
           <Route path="image-comment" element={<ImageComment />} />
+          <Route path="property" element={<Property />} />
         </Route>
       </Routes>
     </div>

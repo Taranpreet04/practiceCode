@@ -22,6 +22,7 @@ const Sidebar = () => {
         { path: '/pinterest', icon: ImageIcon, label: 'Pinterest' },
         { path: '/image-comment', icon: ImageIcon, label: 'Image Comment' },
         { path: '/import-excel', icon: ImageIcon, label: 'Import Excel' },
+        { path: '/property', icon: ImageIcon, label: 'Property' },
     ];
 
     return (

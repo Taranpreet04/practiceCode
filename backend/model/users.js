@@ -5,7 +5,8 @@ import mongoose from 'mongoose';
 const userSchema = new mongoose.Schema({
     userName: { type: String, required: true, trim: true },
     socketID: { type: String, required: true, trim: true },
-    // password:{type: String, required: true, trim:true},
+    fcmToken: { type: String, trim: true, sparse: true },
+    password: { type: String, required: true, trim: true },
     // isAdmin:{type: Boolean}
 });
 //define model-

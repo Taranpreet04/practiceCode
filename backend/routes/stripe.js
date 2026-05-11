@@ -1,10 +1,19 @@
 import express from 'express';
 import Stripe from 'stripe';
-import bodyParser from 'body-parser';
 const router = express.Router();
 import dotenv from 'dotenv';
+import { createPlan } from '../controllers/Ecommerce/plans.js';
 dotenv.config();
-
+/**
+ * @swagger
+ * /api/stripe:
+ *   get:
+ *     summary: Health check
+ *     tags: [Stripe]
+ *     responses:
+ *       200:
+ *         description: Stripe API is working
+ */
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Health check
@@ -121,6 +130,8 @@ router.post('/create-subscription-checkout-session', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+router.post("/create-plan", createPlan)
 router.get("/plans", async (req, res) => {
   try {
     const prices = await stripe.prices.list({
@@ -206,3 +217,23 @@ router.post("/webhook", (req, res) => {
 
 export default router;
 
+
+//  switch (event.type) {
+//                 case 'invoice.payment_succeeded':
+//                     await this.handleInvoicePaymentSucceeded(
+//                         event.data.object as Stripe.Invoice,
+//                     );
+//                     break;
+
+//                 case 'invoice.payment_failed':
+//                     await this.handleInvoicePaymentFailed(
+//                         event.data.object as Stripe.Invoice,
+//                     );
+//                     break;
+
+//                 case 'customer.subscription.deleted':
+//                     await this.handleSubscriptionCancelled(
+//                         event.data.object as Stripe.Subscription,
+//                     );
+//                     break;
+//             }

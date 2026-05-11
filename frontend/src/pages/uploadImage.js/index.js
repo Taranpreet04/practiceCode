@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+
+import React, { useState } from 'react';
 import axios from "axios";
+import { Radio, Tabs } from 'antd';
+
 
 const ImageUpload = () => {
   const [image, setImage] = useState(null);
@@ -43,8 +46,15 @@ const ImageUpload = () => {
     }
   };
 
+  const [mode, setMode] = useState('top');
+
+  const handleModeChange = (e) => {
+    setMode(e.target.value);
+  };
+
+
   return (
-    <div style={{ padding: 20 }}>
+    <div >
       <h2>Upload Image</h2>
 
       <input type="file" accept="image/*" onChange={handleFileChange} />
@@ -61,7 +71,29 @@ const ImageUpload = () => {
       <br /><br />
 
       <button onClick={handleUpload}>Upload</button>
+      {/* <div className='tab-div'>
+        <Radio.Group onChange={handleModeChange} value={mode} >
+          <Radio.Button value="top">Horizontal</Radio.Button>
+          <Radio.Button value="left">Vertical</Radio.Button>
+        </Radio.Group>
+        <Tabs
+          defaultActiveKey="1"
+          tabPlacement={mode}
+          style={{ height: 'calc(100vh - 220px)' }}
+          items={Array.from({ length: 30 }, (_, i) => {
+            const id = String(i);
+            return {
+              label: `Tab-${id}`,
+              key: id,
+              disabled: i === 28,
+              children: `Content of tab ${id}`,
+            };
+          })}
+        />
+      </div> */}
     </div>
+
+
   );
 };
 

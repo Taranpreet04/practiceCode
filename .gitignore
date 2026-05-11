@@ -10,6 +10,7 @@
 *.env
 /frontend/.env
 /backend/.env
+/backend/config/serviceAccountKey.json
 # logs
 logs
 *.log

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "nodemon app.js",
-    "seed": "node seeder/customer.js",
+    "seed": "node seeder/products.js",
     "dev": "node app.js"
   },
   "dependencies": {
@@ -13,19 +13,24 @@
     "@google/genai": "^1.41.0",
     "@google/generative-ai": "^0.24.1",
     "axios": "^1.13.4",
+    "bcrypt": "^6.0.0",
     "body-parser": "^2.2.0",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "dotenv": "^16.6.1",
     "express": "~4.16.1",
+    "firebase-admin": "^13.8.0",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
+    "jsonwebtoken": "^9.0.3",
     "mongoose": "^8.6.3",
     "morgan": "~1.9.1",
     "multer": "^2.0.2",
     "nodemon": "^3.1.5",
     "socket.io": "^4.7.5",
-    "stripe": "^19.2.0"
+    "stripe": "^19.2.0",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.1"
   }
 }

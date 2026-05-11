@@ -91,7 +91,7 @@ export default function StripePayment() {
 
   useEffect(() => {
     // Create PaymentIntent on every visit or when user chooses amount
-    fetch(`${process.env.REACT_APP_BASE_URL}/stripe/create-payment-intent`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/stripe/create-payment-intent`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ amount: 2500 }) // $25.00 in cents
