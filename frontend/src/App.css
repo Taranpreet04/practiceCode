@@ -227,6 +227,187 @@
   }
 }
 
+/* Active Subscription Styles */
+.active-subscription-section {
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 4rem;
+  animation: fadeInDown 0.6s ease;
+}
+
+.active-plan-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+  border-radius: 24px;
+  padding: 3rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 123, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.active-plan-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, rgba(0, 123, 255, 0.1) 0%, transparent 100%);
+  border-radius: 0 0 0 100%;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.5rem 1.2rem;
+  background: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+}
+
+.active-plan-name {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+.active-plan-price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #007bff;
+  margin-bottom: 2rem;
+}
+
+.active-plan-price span {
+  font-size: 1rem;
+  color: #666;
+  font-weight: 400;
+}
+
+.active-plan-details {
+  display: flex;
+  gap: 3rem;
+  margin-bottom: 2.5rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.detail-label {
+  font-size: 0.9rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detail-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #4c66e9;
+}
+
+.detail-value.status-active {
+  color: #28a745;
+  text-transform: capitalize;
+}
+
+.active-features-list h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1.2rem;
+}
+
+.active-features-list ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 3rem;
+}
+
+.active-features-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  color: #555;
+  font-size: 1rem;
+}
+
+.active-features-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #28a745;
+  font-weight: 900;
+}
+
+.active-plan-actions {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.action-btn {
+  flex: 1;
+  padding: 1rem !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  transition: all 0.3s ease !important;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dark Mode for Active Subscription */
+@media (prefers-color-scheme: dark) {
+  .active-plan-card {
+    background: linear-gradient(135deg, #1e1e1e 0%, #252525 100%);
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .active-plan-name,
+  .active-features-list h3 {
+    color: white;
+  }
+
+  .active-plan-price {
+    color: #4da3ff;
+  }
+
+  .active-plan-details {
+    border-color: #333;
+  }
+
+  .detail-value {
+    color: #4c66e9;
+  }
+
+  .active-features-list li {
+    color: #ccc;
+  }
+}
+
 /* Products Page Styles */
 .products-page {
   padding: 4rem 2rem;

@@ -35,10 +35,10 @@ const CustomerSchema = new moongoose.Schema({
         type: String,
         required: true
     },
-    subscriptionCustomerId: {
-        type: String,
-        default: null
-    },
+    // subscriptionCustomerId: {
+    //     type: String,
+    //     default: null
+    // },
 });
 
 const Customer = moongoose.model("Customer", CustomerSchema);

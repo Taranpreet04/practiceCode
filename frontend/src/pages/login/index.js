@@ -3,12 +3,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { initFCM, onMessageListener } from "../../lib/fcm";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [fcmToken, setFcmToken] = useState('');
-
+    const navigate = useNavigate();
     const handleLogin = async () => {
         console.log(email, password);
         try {
@@ -19,7 +20,8 @@ const Login = () => {
             });
             console.log("data==", response.data);
             localStorage.setItem("user", JSON.stringify(response.data.user));
-            toast.success("Login successfully");
+            toast.success(response?.data?.message);
+            navigate("/plans")
         } catch (error) {
             console.error("Login failed:", error);
         }

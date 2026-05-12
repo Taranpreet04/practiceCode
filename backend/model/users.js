@@ -7,6 +7,10 @@ const userSchema = new mongoose.Schema({
     socketID: { type: String, required: true, trim: true },
     fcmToken: { type: String, trim: true, sparse: true },
     password: { type: String, required: true, trim: true },
+    subscriptionCustomerId: { //Stripe Customer ID for subscription
+        type: String,
+        default: null
+    },
     // isAdmin:{type: Boolean}
 });
 //define model-
