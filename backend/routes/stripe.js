@@ -2,7 +2,7 @@ import express from 'express';
 import Stripe from 'stripe';
 const router = express.Router();
 import dotenv from 'dotenv';
-import { cancelSubscription, createPlan, getPlans, webhooks } from '../controllers/Ecommerce/plans.js';
+import { cancelSubscription, createPlan, getPlans, upgradeSubscription, webhooks } from '../controllers/Ecommerce/plans.js';
 import bodyParser from "body-parser";
 import Plan from '../model/Ecommerce/stripe/plans.js';
 import BuySubscription from '../model/Ecommerce/stripe/buySubscription.js';
@@ -131,7 +131,7 @@ router.post('/create-subscription-checkout-session', async (req, res) => {
 router.post("/create-plan", createPlan)
 router.post("/cancel-plan", cancelSubscription)
 router.get("/plans", getPlans);
-
+router.post("/upgrade-subscription", upgradeSubscription)
 router.post("/webhook", webhooks);
 // router.post("/webhook", (req, res) => {
 //   const sig = req.headers["stripe-signature"];

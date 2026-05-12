@@ -206,6 +206,104 @@ const cancelSubscription = async (req, res) => {
     }
 };
 
+const upgradeSubscription = async (req, res) => {
+
+    try {
+
+        const {
+            userId,
+            newPlanId,
+        } = req.body;
+
+        // Find current subscription
+        const subscription =
+            await BuySubscription.findOne({
+                userId,
+                status: "active",
+            });
+
+        if (!subscription) {
+
+            return res.status(404).json({
+                success: false,
+                message:
+                    "Active subscription not found",
+            });
+        }
+
+        // Find new plan
+        const newPlan =
+            await Plan.findById(newPlanId);
+
+        if (!newPlan) {
+
+            return res.status(404).json({
+                success: false,
+                message: "Plan not found",
+            });
+        }
+
+        // Get old Stripe subscription
+        const stripeSubscription =
+            await stripe.subscriptions.retrieve(
+                subscription.stripeSubscriptionId
+            );
+
+        // old subscription item id
+        const subscriptionItemId =
+            stripeSubscription.items.data[0]
+                .id;
+
+        // Upgrade subscription
+        const updatedSubscription =
+            await stripe.subscriptions.update(
+                subscription.stripeSubscriptionId,
+                {
+                    items: [
+                        {
+                            id: subscriptionItemId,
+
+                            price:
+                                newPlan.stripePriceId,
+                        },
+                    ],
+
+                    proration_behavior:
+                        "create_prorations",
+                }
+            );
+
+        // Update DB
+        subscription.planId =
+            newPlan._id;
+
+        subscription.stripePriceId =
+            newPlan.stripePriceId;
+
+        subscription.status =
+            updatedSubscription.status;
+
+        await subscription.save();
+
+        return res.status(200).json({
+            success: true,
+            message:
+                "Subscription upgraded successfully",
+
+            data: updatedSubscription,
+        });
+
+    } catch (error) {
+
+        console.log(error);
+
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+}
+
 const webhooks = async (req, res) => {
     const sig = req.headers["stripe-signature"];
 
@@ -507,4 +605,4 @@ const webhooks = async (req, res) => {
     }
 }
 
-export { createPlan, cancelSubscription, getPlans, webhooks };
+export { createPlan, cancelSubscription, getPlans, upgradeSubscription, webhooks };
