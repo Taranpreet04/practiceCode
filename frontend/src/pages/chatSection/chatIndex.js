@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import ChatBar from './ChatBar';
 import ChatBody from './ChatBody';
 import ChatFooter from "./ChatFooter";
@@ -14,10 +14,11 @@ const Chat = ({ socket }) => {
   // console.log("messages------", messages, location.state)
   return (
     <div className="chat">
-      <ChatBar socket={socket} users={users}  setUsers={setUsers}/>
+      {/* <ChatBar socket={socket} users={users} setUsers={setUsers} /> */}
       <div className="chat__main">
-        <ChatBody socket={socket} messages={messages} setMessages={setMessages}/>
-        <ChatFooter socket={socket}  messages={messages}  setMessages={setMessages}/>
+        {/* <ChatBody socket={socket} messages={messages} setMessages={setMessages}/> */}
+        <ChatBody socket={socket} />
+        {/* <ChatFooter socket={socket}  messages={messages}  setMessages={setMessages}/> */}
       </div>
     </div>
   );

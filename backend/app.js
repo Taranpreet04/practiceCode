@@ -64,6 +64,7 @@ app.use('/api/gemini', geminiRouter);
 app.use('/api/pinterest', pinterestRouter);
 app.use('/api/ecommerce', ecommerceRoutes);
 app.use('/api/property', propertyRoutes);
+app.use('/api/vlogs', vlogsRoutes);
 // app.use('/api/ecommerce', ecommerceRoutes);
 
 // View engine setup

@@ -11,19 +11,21 @@ import {
 } from 'lucide-react';
 import './Sidebar.css';
 
+export const menuItems = [
+    { path: '/', icon: Home, label: 'Home' },
+    { path: '/chat', icon: MessageSquare, label: 'Chat' },
+    { path: '/stripe', icon: CreditCard, label: 'Stripe Payment' },
+    { path: '/upload-image', icon: Upload, label: 'Upload Image' },
+    { path: '/gemini', icon: Cpu, label: 'Gemini AI' },
+    { path: '/plans', icon: Layers, label: 'Subscription Plans' },
+    { path: '/products', icon: ShoppingBag, label: 'Products' },
+    { path: '/pinterest', icon: ImageIcon, label: 'Pinterest' },
+    { path: '/image-comment', icon: ImageIcon, label: 'Image Comment' },
+    { path: '/import-excel', icon: ImageIcon, label: 'Import Excel' },
+    { path: '/property', icon: ImageIcon, label: 'Property' },
+    { path: '/scroll', icon: Cpu, label: 'Scroll Test' },
+];
 const Sidebar = () => {
-    const menuItems = [
-        { path: '/', icon: Home, label: 'Home' },
-        { path: '/stripe', icon: CreditCard, label: 'Stripe Payment' },
-        { path: '/upload', icon: Upload, label: 'Upload Image' },
-        { path: '/gemini', icon: Cpu, label: 'Gemini AI' },
-        { path: '/plans', icon: Layers, label: 'Subscription Plans' },
-        { path: '/products', icon: ShoppingBag, label: 'Products' },
-        { path: '/pinterest', icon: ImageIcon, label: 'Pinterest' },
-        { path: '/image-comment', icon: ImageIcon, label: 'Image Comment' },
-        { path: '/import-excel', icon: ImageIcon, label: 'Import Excel' },
-        { path: '/property', icon: ImageIcon, label: 'Property' },
-    ];
 
     return (
         <div className="sidebar">

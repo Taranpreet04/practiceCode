@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.996.0",
+    "@deepgram/sdk": "^5.4.0",
     "@google/genai": "^1.41.0",
     "@google/generative-ai": "^0.24.1",
     "axios": "^1.13.4",
