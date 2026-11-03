@@ -26,11 +26,9 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: "http://localhost:4000",
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
 }));
-
 app.use(logger('dev'));
 app.use(express.json({
   verify: (req, res, buf) => {
