@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import axios from "axios";
-import { Radio, Tabs } from 'antd';
+// import { Radio, Tabs } from 'antd';
 
 
 const ImageUpload = () => {
@@ -46,11 +46,11 @@ const ImageUpload = () => {
     }
   };
 
-  const [mode, setMode] = useState('top');
+  // const [mode, setMode] = useState('top');
 
-  const handleModeChange = (e) => {
-    setMode(e.target.value);
-  };
+  // const handleModeChange = (e) => {
+  //   setMode(e.target.value);
+  // };
 
 
   return (
