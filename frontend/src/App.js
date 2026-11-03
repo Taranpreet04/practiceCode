@@ -1,10 +1,10 @@
 // import logo from './logo.svg';
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
 
 import './App.css';
 import { Routes, Route } from 'react-router-dom'
 import MainLayout from './MainLayout';
-import Home from './pages/home';
+// import Home from './pages/home';
 import Chat from './pages/chatSection/chatIndex';
 import StripePayment from './pages/StripePayment.js';
 import UploadImage from './pages/uploadImage.js/index.js';
@@ -17,8 +17,8 @@ import ImageComment from './pages/ImageComment.js';
 import ImportExcel from './pages/ImportExcel/index.js';
 import Property from './pages/property.js';
 import Login from './pages/login/index.js';
-import { ToastContainer, toast } from 'react-toastify';
-import { useEffect, useState } from 'react';
+import { ToastContainer } from 'react-toastify';
+// import { useEffect, useState } from 'react';
 import { ScrollTest } from './pages/scrolTest.js';
 function App() {
   // const [socket, setSocket] = useState(null)
