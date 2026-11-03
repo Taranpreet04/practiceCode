@@ -126,7 +126,7 @@ export default function GeminiAi() {
                                     <div key={imgIdx} className="image-wrapper">
                                         <img
                                             src={imgUrl}
-                                            alt={`Chapter ${index + 1} - Image ${imgIdx + 1}`}
+                                            alt={`Chapter ${index + 1} - Illustration ${imgIdx + 1}`}
                                             loading="lazy"
                                         />
                                     </div>
@@ -150,7 +150,7 @@ export default function GeminiAi() {
                                     <div key={imgIdx} className="image-wrapper">
                                         <img
                                             src={imgUrl}
-                                            alt={`Chapter ${chapters.length + 1} - Image ${imgIdx + 1}`}
+                                            alt={`Chapter ${chapters.length + 1} - Illustration ${imgIdx + 1}`}
                                             loading="lazy"
                                         />
                                     </div>

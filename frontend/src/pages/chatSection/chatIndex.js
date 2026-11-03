@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import ChatBar from './ChatBar';
+// import { useState } from 'react';
+// import ChatBar from './ChatBar';
 import ChatBody from './ChatBody';
-import ChatFooter from "./ChatFooter";
+// import ChatFooter from "./ChatFooter";
 // import {useLocation} from 'react-router-dom';
 
 const Chat = ({ socket }) => {
   // const location = useLocation();
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
   // console.log("====",socket?.id)
-  const [messages, setMessages] = useState([]);
+  // const [messages, setMessages] = useState([]);
 
 
   // console.log("messages------", messages, location.state)

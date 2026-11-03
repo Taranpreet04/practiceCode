@@ -104,24 +104,25 @@ const Pinterest = () => {
         const urlParams = new URLSearchParams(window.location.search);
         const code = urlParams.get('code');
         fetchImportedPins();
-        fetchBoards();
         if (code) {
             handleOAuthCallback(code);
         } else {
             fetchBoards();
         }
+        // Run once on mount only
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    console.log("boards==", boards)
-    console.log("pins==", pins)
-    console.log("selectedPins==", selectedPins)
+    // console.log("boards==", boards)
+    // console.log("pins==", pins)
+    // console.log("selectedPins==", selectedPins)
     return (
         <div className="pinterest-container">
             <div className="pinterest-header">
                 <h1>Pinterest Import</h1>
                 {!isConnected ? (
-                    <button className="pinterest-btn" onClick={connectPinterest}>
-                        Connect Pinterest
+                    <button className="pinterest-btn" onClick={connectPinterest} disabled={isConnecting}>
+                        {isConnecting ? 'Connecting...' : 'Connect Pinterest'}
                     </button>
                 ) : (
                     <button className="pinterest-btn secondary" onClick={() => setSelectedBoard(null)}>
