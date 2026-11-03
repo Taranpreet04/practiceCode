@@ -43,7 +43,7 @@ function App() {
     <div className="App">
       <ToastContainer />
       <Routes>
-        <Route path="/" element={<MainLayout />}>
+        <Route path="/practiceCode" element={<MainLayout />}>
           <Route path="login" element={<Login />} />
           {/* <Route index element={<Home socket={socketInstance} />} />
           <Route path="chat" element={<Chat socket={socketInstance} />} /> */}

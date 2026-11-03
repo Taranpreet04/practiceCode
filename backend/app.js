@@ -52,10 +52,10 @@ import geminiRouter from './routes/gemini.js';
 import pinterestRouter from './routes/pinterestRoutes.js';
 import ecommerceRoutes from './routes/ecomerce/index.js';
 import propertyRoutes from './routes/propertyRoutes.js';
-const serviceAccount = require("./config/serviceAccountKey.json");
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
+// const serviceAccount = require("./config/serviceAccountKey.json");
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+// });
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/stripe', stripeRouter);
@@ -64,7 +64,7 @@ app.use('/api/gemini', geminiRouter);
 app.use('/api/pinterest', pinterestRouter);
 app.use('/api/ecommerce', ecommerceRoutes);
 app.use('/api/property', propertyRoutes);
-app.use('/api/vlogs', vlogsRoutes);
+// app.use('/api/vlogs', vlogsRoutes);
 // app.use('/api/ecommerce', ecommerceRoutes);
 
 // View engine setup

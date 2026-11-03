@@ -12,18 +12,18 @@ import {
 import './Sidebar.css';
 
 export const menuItems = [
-    { path: '/', icon: Home, label: 'Home' },
-    { path: '/chat', icon: MessageSquare, label: 'Chat' },
-    { path: '/stripe', icon: CreditCard, label: 'Stripe Payment' },
-    { path: '/upload-image', icon: Upload, label: 'Upload Image' },
-    { path: '/gemini', icon: Cpu, label: 'Gemini AI' },
-    { path: '/plans', icon: Layers, label: 'Subscription Plans' },
-    { path: '/products', icon: ShoppingBag, label: 'Products' },
-    { path: '/pinterest', icon: ImageIcon, label: 'Pinterest' },
-    { path: '/image-comment', icon: ImageIcon, label: 'Image Comment' },
-    { path: '/import-excel', icon: ImageIcon, label: 'Import Excel' },
-    { path: '/property', icon: ImageIcon, label: 'Property' },
-    { path: '/scroll', icon: Cpu, label: 'Scroll Test' },
+    { path: '/practiceCode/', icon: Home, label: 'Home' },
+    { path: '/practiceCode/chat', icon: MessageSquare, label: 'Chat' },
+    { path: '/practiceCode/stripe', icon: CreditCard, label: 'Stripe Payment' },
+    { path: '/practiceCode/upload-image', icon: Upload, label: 'Upload Image' },
+    { path: '/practiceCode/gemini', icon: Cpu, label: 'Gemini AI' },
+    { path: '/practiceCode/plans', icon: Layers, label: 'Subscription Plans' },
+    { path: '/practiceCode/products', icon: ShoppingBag, label: 'Products' },
+    { path: '/practiceCode/pinterest', icon: ImageIcon, label: 'Pinterest' },
+    { path: '/practiceCode/image-comment', icon: ImageIcon, label: 'Image Comment' },
+    { path: '/practiceCode/import-excel', icon: ImageIcon, label: 'Import Excel' },
+    { path: '/practiceCode/property', icon: ImageIcon, label: 'Property' },
+    { path: '/practiceCode/scroll', icon: Cpu, label: 'Scroll Test' },
 ];
 const Sidebar = () => {
 
