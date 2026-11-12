@@ -88,7 +88,7 @@ export default function Products() {
           image: items.image,
         };
 
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL || 'http://127.0.0.1:7000'}/api/stripe/create-checkout-session`, payload);
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/stripe/create-checkout-session`, payload);
 
       if (response.data.url) {
         window.location.href = response.data.url;

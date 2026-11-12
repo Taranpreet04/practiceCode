@@ -13,7 +13,7 @@ const Login = () => {
     const handleLogin = async () => {
         console.log(email, password);
         try {
-            const response = await axios.post("http://localhost:7000/login", {
+            const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/login`, {
                 email,
                 password,
                 fcmToken,
@@ -49,7 +49,7 @@ const Login = () => {
 
             <button onClick={async () => {
                 try {
-                    let res = await axios.post("http://localhost:7000/send-notification", {
+                    let res = await axios.post(`${process.env.REACT_APP_BASE_URL}/send-notification`, {
                         userId: JSON.parse(localStorage.getItem("user")).id,
                     })
                     console.log("res", res)

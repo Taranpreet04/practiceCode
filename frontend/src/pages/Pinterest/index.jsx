@@ -17,14 +17,14 @@ const Pinterest = () => {
 
     const connectPinterest = () => {
         setIsConnecting(true);
-        window.location.href = `http://127.0.0.1:7000/api/pinterest/login?state=${userId}`;
+        window.location.href = `${process.env.REACT_APP_BASE_URL}/api/pinterest/login?state=${userId}`;
     };
 
     const handleOAuthCallback = async (code) => {
         setLoading(true);
         setMessage('Completing connection...');
         try {
-            await axios.get(`http://localhost:7000/api/pinterest/callback?code=${code}&state=${userId}`);
+            await axios.get(`${process.env.REACT_APP_BASE_URL}/api/pinterest/callback?code=${code}&state=${userId}`);
             setMessage('Pinterest connected successfully!');
             // Clean up URL
             window.history.replaceState({}, document.title, window.location.pathname);
@@ -39,7 +39,7 @@ const Pinterest = () => {
 
     const fetchImportedPins = async () => {
         try {
-            const res = await axios.get(`http://localhost:7000/api/pinterest/imported-pins?userId=${userId}`);
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/pinterest/imported-pins?userId=${userId}`);
             setAlreadyImportedPins(res.data.items || []);
         } catch (err) {
             console.error('Error fetching imported pins', err);
@@ -49,7 +49,7 @@ const Pinterest = () => {
     const fetchBoards = async () => {
         setLoading(true);
         try {
-            const res = await axios.get(`http://localhost:7000/api/pinterest/boards?userId=${userId}`);
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/pinterest/boards?userId=${userId}`);
             console.log("boards", res.data.items)
             setBoards(res.data.items);
             setIsConnected(true);
@@ -65,7 +65,7 @@ const Pinterest = () => {
         setLoading(true);
         setSelectedBoard(boardId);
         try {
-            const res = await axios.get(`http://localhost:7000/api/pinterest/boards/${boardId}/pins?userId=${userId}`);
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/pinterest/boards/${boardId}/pins?userId=${userId}`);
             setPins(res.data.items);
         } catch (err) {
             console.error('Error fetching pins', err);
@@ -85,7 +85,7 @@ const Pinterest = () => {
         setImporting(true);
         setMessage('Importing images...');
         try {
-            const res = await axios.post('http://localhost:7000/api/pinterest/import', {
+            const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/pinterest/import`, {
                 pins: selectedPins,
                 userId
             });

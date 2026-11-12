@@ -1,12 +1,13 @@
 import swaggerAutogen from 'swagger-autogen';
+import 'dotenv/config';
 
 const doc = {
     info: {
         title: "Node API",
         description: "API Documentation",
     },
-    host: "localhost:7000",
-    schemes: ["http"],
+    host: new URL(process.env.BACKEND_URL).host,
+    schemes: [new URL(process.env.BACKEND_URL).protocol.replace(":", "")],
     tags: [
         {
             name: "Orders",

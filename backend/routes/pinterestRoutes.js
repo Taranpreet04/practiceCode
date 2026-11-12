@@ -169,7 +169,7 @@ router.post('/import', async (req, res) => {
             // Save to Database
             const savedPin = await ImportedPin.findOneAndUpdate(
                 { userId, pinId },
-                { localUrl: `http://localhost:7000/uploads/${fileName}`, originalUrl: imageUrl },
+                { localUrl: `${process.env.BACKEND_URL}/uploads/${fileName}`, originalUrl: imageUrl },
                 { upsert: true, new: true }
             );
 

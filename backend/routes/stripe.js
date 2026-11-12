@@ -86,8 +86,8 @@ router.post('/create-checkout-session', async (req, res) => {
       payment_method_types: ['card'],
       line_items,
       mode: 'payment',
-      success_url: `${process.env.REACT_APP_FRONTEND_URL || 'http://localhost:4000'}/products?payment=success`,
-      cancel_url: `${process.env.REACT_APP_FRONTEND_URL || 'http://localhost:4000'}/products?payment=cancel`,
+      success_url: `${process.env.FRONTEND_URL}/products?payment=success`,
+      cancel_url: `${process.env.FRONTEND_URL}/products?payment=cancel`,
     });
 
     res.json({ url: session.url });
@@ -116,8 +116,8 @@ router.post('/create-subscription-checkout-session', async (req, res) => {
         userId,
         planId,
       },
-      success_url: `${process.env.REACT_APP_FRONTEND_URL || 'http://localhost:4000'}/plans?payment=success`,
-      cancel_url: `${process.env.REACT_APP_FRONTEND_URL || 'http://localhost:4000'}/plans?payment=cancel`,
+      success_url: `${process.env.FRONTEND_URL}/plans?payment=success`,
+      cancel_url: `${process.env.FRONTEND_URL}/plans?payment=cancel`,
     });
 
 

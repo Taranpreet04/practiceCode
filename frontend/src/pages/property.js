@@ -11,7 +11,7 @@ const Property = () => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const res = await axios.post("http://localhost:7000/api/property/get-property-details");
+                const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/property/get-property-details`);
                 setProperties(res.data?.properties || []);
             } catch (error) {
                 console.error("Error fetching properties:", error);

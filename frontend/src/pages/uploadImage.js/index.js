@@ -29,7 +29,7 @@ const ImageUpload = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:7000/api/upload",
+        `${process.env.REACT_APP_BASE_URL}/api/upload`,
         formData,
         {
           headers: {
