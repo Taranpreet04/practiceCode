@@ -26,7 +26,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: "*",
+  origin: process.env.FRONTEND_URL,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
 }));
 app.use(logger('dev'));
